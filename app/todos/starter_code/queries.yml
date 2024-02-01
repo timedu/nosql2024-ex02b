@@ -1,0 +1,162 @@
+
+# --
+# (A) Build-in
+#
+
+# (QA.1) How long is the shortest paths from "Kevin Bacon" to "Meg Ryan"?
+# (QA.2) How many shortest paths are there from "Kevin Bacon" to "Meg Ryan"?
+# (QA.3) What is one of the shortest paths from "Kevin Bacon" to "Meg Ryan"?
+# (QA.4) What are the distinct shortest paths from "Kevin Bacon" to "Meg Ryan"?
+
+
+# (QA.1) How long is the shortest paths from "Kevin Bacon" to "Meg Ryan"?
+
+qa_1: >
+
+
+# (QA.2) How many shortest paths are there from "Kevin Bacon" to "Meg Ryan"?
+
+qa_2: >  
+
+
+# (QA.3) What is one of the shortest paths from "Kevin Bacon" to "Meg Ryan"?
+
+qa_3: >
+
+
+# (QA.4) What are the distinct shortest paths from "Kevin Bacon" to "Meg Ryan"?
+
+qa_4: >
+
+
+# --
+# (B) Native projection
+#
+
+# (QB.1) Create a native projection of Person and Movie nodes and ACTED_IN and DIRECTED relationships.
+# (QB.2) How long is the shortest paths from "Kevin Bacon" to "Meg Ryan" (use "dijkstra")?
+# (QB.3) What is one of the shortest paths from "Kevin Bacon" to "Meg Ryan" (use "dijkstra")?
+# (QB.4) What is one of the shortest paths from "Kevin Bacon" to "Meg Ryan" (use "yens")?
+# (QB.5) What are the seven shortest paths from "Kevin Bacon" to "Meg Ryan" (use "yens")?
+# (QB.6) Remove the "person-movie" projection. (= ALREADY PREPARED =)
+
+
+# (QB.1) Create a native projection of Person and Movie nodes and ACTED_IN and DIRECTED relationships.
+
+# Hints:
+# https://neo4j.com/docs/graph-data-science/current/management-ops/projections/graph-project/
+
+qb_1: >
+
+
+# (QB.2) How long is the shortest paths from "Kevin Bacon" to "Meg Ryan" (use "dijkstra")?
+
+# Hints:
+# https://neo4j.com/docs/graph-data-science/current/algorithms/dijkstra-source-target/
+# Example: GDS Fundamentals Course
+
+qb_2: >
+
+
+# (QB.3) What is one of the shortest paths from "Kevin Bacon" to "Meg Ryan" (use "dijkstra")?
+
+qb_3: >
+
+
+# (QB.4) What is one of the shortest paths from "Kevin Bacon" to "Meg Ryan" (use "yens")?
+
+# Hints:
+# https://neo4j.com/docs/graph-data-science/current/algorithms/yens/
+
+qb_4: >
+
+
+# (QB.5) What are the seven shortest paths from "Kevin Bacon" to "Meg Ryan" (use "yens")?
+
+qb_5: >
+
+
+# (QB.6) Remove the "person-movie" projection.
+
+# (= ALREADY PREPARED =)
+
+qb_6: >
+  CALL gds.graph.drop('person-movie')
+  YIELD graphName, nodeCount, relationshipCount
+
+
+# --
+# (C) Cypher projection
+#
+
+# (QC.1) Create a cypher projection ... 
+# (QC.2) Determine the actors' unweighted degree of centrality.
+# (QC.3) Determine the actors' weighted degree of centrality.
+# (QC.4) Mutate the weighted degree of centrality to the nodes of the projection.
+# (QC.5) Remove the mutated property. (= ALREADY PREPARED =)
+# (QC.6) Detemine the Lovain communities of actors.
+# (QC.7) Write the community IDs into the graph (not into projection).
+# (QC.8) Remove the "person-acted-with" projection. (= ALREADY PREPARED =)
+
+
+# (QC.1) Create a cypher projection ... 
+
+# Hints:
+# Create a similar cypher projection between Person nodes ("ACTED_WITH") 
+# as in the example of Introduction to Neo4j GDS mini-course.  
+# No WHERE clause is needed. Our schema is slightly different from the example.
+# 
+# https://neo4j.com/docs/graph-data-science/current/management-ops/projections/graph-project-cypher/
+# Example: Intro to Neo4j GDS course
+
+qc_1: >
+
+
+# (QC.2) Determine the actors' unweighted degree of centrality.
+
+# Hints:
+# https://neo4j.com/docs/graph-data-science/current/algorithms/degree-centrality/
+# Example: Intro to Neo4j GDS course
+
+qc_2: >
+
+
+# (QC.3) Determine the actors' weighted degree of centrality.
+
+qc_3: >
+
+
+# (QC.4) Mutate the weighted degree of centrality to the nodes of the projection.
+
+qc_4: >
+
+
+# (QC.5) Remove the mutated property.
+
+# (= ALREADY PREPARED =)
+
+qc_5: >
+  CALL gds.graph.nodeProperties.drop('person-acted-with', 'actedWithScore')
+  YIELD propertiesRemoved
+
+
+# (QC.6) Detemine the Lovain communities of actors.
+
+# Hints:
+# https://neo4j.com/docs/graph-data-science/current/algorithms/louvain/
+
+qc_6: >
+
+
+# (QC.7) Write the community IDs into the graph (not into projection).
+
+qc_7: >
+
+
+# (QC.8) Remove the "person-acted-with" projection.
+
+# (= ALREADY PREPARED =)
+
+qc_8: >
+  CALL gds.graph.drop('person-acted-with')
+  YIELD graphName, nodeCount, relationshipCount

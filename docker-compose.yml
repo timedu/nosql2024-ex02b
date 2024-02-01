@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+
+  app:
+
+    # TO RUN YOUR CODE (e.g.):
+    # ------------------------
+    # docker compose run --rm app
+    # ... or ...
+    # bash first   : docker compose run --rm app bash
+    # and then app : python -B main.py
+
+    # TO RUN CODE TO BE REVIEWED (e.g.):
+    # ----------------------------------
+    # docker compose run --rm app python -B main.py --review=1
+    # ... or ...
+    # bash first   : docker compose run --rm app bash
+    # and then app : python -B main.py --review=1
+
+    # we can use the image from Part A
+    image: nosql-2024:ex02a
+    build:
+      dockerfile: ./Dockerfile
+    command: python -B main.py
+    volumes:
+      - ./app:/home/app
+    environment:
+      - NEO4J_URI=${NEO4J_URI:-neo4j://neo4j:7687}
+    profiles:
+      - do-not-start-by-default
+
+  neo4j:
+
+    # TO START NEO4J CONTAINER
+    # ------------------------
+    # docker compose up -d    # to see log messages omit '-d'
+
+    # TO SHUT DOWN NEO4J CONTAINER
+    # ----------------------------
+    # docker compose down 
+
+    # TO RUN CYPHER SHELL IN NEO4J CONTAINER
+    # --------------------------------------
+    # docker compose exec neo4j cypher-shell
+    
+    # TO RUN NEO4J BROWSER IN WEB BROWSER
+    # -----------------------------------
+    # http://localhost:7474/browser/
+
+    image: neo4j:5.16
+    ports: 
+    - 7474:7474
+    - 7687:7687
+    environment:
+    - NEO4J_AUTH=none
+    - NEO4J_PLUGINS=["graph-data-science", "apoc"]
